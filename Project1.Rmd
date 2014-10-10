@@ -28,6 +28,7 @@ html_document:
 
 ```
 
+####Question1: Show where the distribution is centered and compare it to the theoretical center of the distribution.
 
 ```{r "historgram_of_means"}
 
@@ -50,6 +51,8 @@ html_document:
         text(meanofdistmeans,265, "Data Mean", col="red", adj=c(1.1,0))
         text(5,265, "Theoretical Mean", col="blue", adj=c(-.10,0))
 ```
+
+The mean of the distribution `r meanofdistmeans` differs by `r 100*(1-meanofdistmeans/5.)`% from the theoretical mean of 5.0
 
 
 ```{r "variance"}
