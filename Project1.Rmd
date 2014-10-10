@@ -12,32 +12,44 @@ html_document:
 ```{r "creatematrix", echo=TRUE}
 
 ##create data for analysis
-set.seed(54321)
-##makes sample sizes variable
-rowsofsamples <- 1000
-columnsofdistributions <- 40
-##create data frame
-rdata <- replicate(columnsofdistributions, rexp(rowsofsamples, .2)) 
-##look at structure of data
-str(rdata)
+
+        ##Set seed to make results reproducible
+        set.seed(54321)
+
+        ##makes sample sizes variable
+        rowsofsamples <- 1000
+        columnsofdistributions <- 40
+
+        ##create data frame
+        rdata <- replicate(columnsofdistributions, rexp(rowsofsamples, .2)) 
+       
+        ##look at structure of data
+        str(rdata)
 
 ```
 
 
 ```{r "historgram_of_means"}
 
-mean(rdata)
+##Take means of columns and plot histrogram with mean and theoretical mean 
+        
+        ##Compute Column means
+        expmeans <- colMeans(rdata)
 
-expmeans <- colMeans(rdata)
+        ##Generate Historgram
+        hist(expmeans, xlim=c(4.6,5.4), ylim=c(0,11))
 
-hist(expmeans, xlim=c(4.5,5.5), ylim=c(0,11))
+        ##Calculate "Mean of Means"
+        meanofdistmeans<-mean(expmeans)
+        
+        ##Draw lines at mean and theoretical mean = 5
+        abline(v=meanofdistmeans, lwd=3, col="red")
+        abline(v=5, lwd=3, col="blue")
 
-meanofdistmeans<-mean(expmeans)
-abline(v=meanofdistmeans, lwd=2, col="red")
-
-abline(v=5, lwd=2, col="blue")
-text(5,10.5, "Data Mean   ", col="red", adj=c(1,0))
-text(5,10.5, "  Theoretical Mean", col="blue", adj=c(0,0))
+        ##Label graph
+        text(meanofdistmeans,10.5, "Data Mean", col="red", adj=c(1.1,0))
+        text(5,10.5, "Theoretical Mean", col="blue", adj=c(-.10,0))
 ```
 
 
+```{}
