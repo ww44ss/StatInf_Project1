@@ -17,8 +17,8 @@ html_document:
         set.seed(54321)
 
         ##makes sample sizes variable
-        rowsofsamples <- 1000
-        columnsofdistributions <- 40
+        rowsofsamples <- 40
+        columnsofdistributions <- 1000
 
         ##create data frame
         rdata <- replicate(columnsofdistributions, rexp(rowsofsamples, .2)) 
@@ -37,7 +37,7 @@ html_document:
         expmeans <- colMeans(rdata)
 
         ##Generate Historgram
-        hist(expmeans, xlim=c(4.6,5.4), ylim=c(0,11))
+        hist(expmeans) #, xlim=c(4.6,5.4), ylim=c(0,11))
 
         ##Calculate "Mean of Means"
         meanofdistmeans<-mean(expmeans)
