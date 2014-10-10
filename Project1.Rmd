@@ -36,7 +36,8 @@ meanofdistmeans<-mean(expmeans)
 abline(v=meanofdistmeans, lwd=2, col="red")
 
 abline(v=5, lwd=2, col="blue")
-
+text(5,10.5, "Data Mean   ", col="red", adj=c(1,0))
+text(5,10.5, "  Theoretical Mean", col="blue", adj=c(0,0))
 ```
 
 
