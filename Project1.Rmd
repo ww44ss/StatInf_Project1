@@ -37,7 +37,7 @@ html_document:
         expmeans <- colMeans(rdata)
 
         ##Generate Historgram
-        hist(expmeans) #, xlim=c(4.6,5.4), ylim=c(0,11))
+        hist(expmeans, density=20, angle=45) #, xlim=c(4.6,5.4), ylim=c(0,11))
 
         ##Calculate "Mean of Means"
         meanofdistmeans<-mean(expmeans)
@@ -52,4 +52,10 @@ html_document:
 ```
 
 
-```{}
+```{r "variance"}
+
+varofdistmeans = var(expmeans)
+
+
+
+```
