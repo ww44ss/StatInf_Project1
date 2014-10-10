@@ -9,11 +9,34 @@ html_document:
 
 ##Synopsis
 
-```{r}
+```{r "creatematrix", echo=TRUE}
 
+##create data for analysis
 set.seed(54321)
-rdata <- replicate(10, rexp(10, .2)) 
-
-head(rdata)
+##makes sample sizes variable
+rowsofsamples <- 1000
+columnsofdistributions <- 40
+##create data frame
+rdata <- replicate(columnsofdistributions, rexp(rowsofsamples, .2)) 
+##look at structure of data
+str(rdata)
 
 ```
+
+
+```{r "historgram_of_means"}
+
+mean(rdata)
+
+expmeans <- colMeans(rdata)
+
+hist(expmeans, xlim=c(4.5,5.5), ylim=c(0,11))
+
+meanofdistmeans<-mean(expmeans)
+abline(v=meanofdistmeans, lwd=2, col="red")
+
+abline(v=5, lwd=2, col="blue")
+
+```
+
+
