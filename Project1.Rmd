@@ -37,7 +37,7 @@ html_document:
         expmeans <- colMeans(rdata)
 
         ##Generate Historgram
-        hist(expmeans, density=20, angle=45) #, xlim=c(4.6,5.4), ylim=c(0,11))
+        hist(expmeans, density=20, angle=45, xlim=c(1,9), ylim=c(0,270))
 
         ##Calculate "Mean of Means"
         meanofdistmeans<-mean(expmeans)
@@ -47,14 +47,18 @@ html_document:
         abline(v=5, lwd=3, col="blue")
 
         ##Label graph
-        text(meanofdistmeans,10.5, "Data Mean", col="red", adj=c(1.1,0))
-        text(5,10.5, "Theoretical Mean", col="blue", adj=c(-.10,0))
+        text(meanofdistmeans,265, "Data Mean", col="red", adj=c(1.1,0))
+        text(5,265, "Theoretical Mean", col="blue", adj=c(-.10,0))
 ```
 
 
 ```{r "variance"}
 
 varofdistmeans = var(expmeans)
+
+print(varofdistmeans)
+
+
 
 
 
