@@ -14,14 +14,17 @@ html_document:
 ##create data for analysis
 
         ##Set seed to make results reproducible
-        set.seed(54321)
+        set.seed(8675309)
 
         ##makes sample sizes variable
         rowsofsamples <- 40
         columnsofdistributions <- 1000
 
+        ##set lambda 
+        lambda <- .2
+
         ##create data frame
-        rdata <- replicate(columnsofdistributions, rexp(rowsofsamples, .2)) 
+        rdata <- replicate(columnsofdistributions, rexp(rowsofsamples, lambda)) 
        
         ##look at structure of data
         str(rdata)
@@ -30,18 +33,40 @@ html_document:
 
 ####Question1: Show where the distribution is centered and compare it to the theoretical center of the distribution.
 
-```{r "historgram_of_means"}
+```{r "means"}
 
 ##Take means of columns and plot histrogram with mean and theoretical mean 
         
         ##Compute Column means
         expmeans <- colMeans(rdata)
 
-        ##Generate Historgram
-        hist(expmeans, density=20, angle=45, xlim=c(1,9), ylim=c(0,270))
-
         ##Calculate "Mean of Means"
         meanofdistmeans<-mean(expmeans)
+
+```
+
+The mean of the distribution `r meanofdistmeans` differs by `r 100*(meanofdistmeans/5.-1.)`% from the theoretical mean of 5.0
+
+
+####Variance:  Show how variable it is and compare it to the theoretical variance of the distribution.
+
+
+```{r "variance"}
+
+        ## Calculate the Variance
+        varofdistmeans = var(expmeans)
+
+```
+
+The theoretical variance of the distribution is `r lambda` versus the variance of the data `r varofdistmeans`, which is `r varofdistmeans/lambda` times larger.
+
+####Distribution: Show that the distribution is approximately normal.
+
+```{r "histogram"}
+
+        ##Generate Historgram
+        hist(expmeans, density=18, angle=45, xlim=c(1,9), ylim=c(0,270))
+
         
         ##Draw lines at mean and theoretical mean = 5
         abline(v=meanofdistmeans, lwd=3, col="red")
@@ -50,19 +75,23 @@ html_document:
         ##Label graph
         text(meanofdistmeans,265, "Data Mean", col="red", adj=c(1.1,0))
         text(5,265, "Theoretical Mean", col="blue", adj=c(-.10,0))
-```
-
-The mean of the distribution `r meanofdistmeans` differs by `r 100*(1-meanofdistmeans/5.)`% from the theoretical mean of 5.0
-
-
-```{r "variance"}
-
-varofdistmeans = var(expmeans)
-
-print(varofdistmeans)
-
-
-
 
 
 ```
+
+
+
+####Convergence: Evaluate the coverage of the confidence interval for 1/lambda: X¯±1.96S/√n.
+
+
+```{r "convergence"}
+
+#hmmm....
+
+
+
+
+
+
+```
+
