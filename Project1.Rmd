@@ -72,9 +72,14 @@ The theoretical variance of the distribution is `r lambda` versus the variance o
         abline(v=meanofdistmeans, lwd=3, col="red")
         abline(v=5, lwd=3, col="blue")
 
-        ##Label graph
+        ##Label means on graph
         text(meanofdistmeans,265, "Data Mean", col="red", adj=c(1.1,0))
         text(5,265, "Theoretical Mean", col="blue", adj=c(-.10,0))
+
+
+        ###Draw Std Deviation Lines
+        print(varofdistmeans^(1/2))
+        print(meanofdistmeans)
 
 
 ```
