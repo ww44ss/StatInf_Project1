@@ -78,8 +78,12 @@ The theoretical variance of the distribution is `r lambda` versus the variance o
 
 
         ###Draw Std Deviation Lines
-        print(varofdistmeans^(1/2))
-        print(meanofdistmeans)
+        
+        
+        stddev<-varofdistmeans^(1/2)
+
+        segments(meanofdistmeans+stddev, 250*.25/.4, meanofdistmeans-stddev, col="red", lwd=3)
+
 
 
 ```
