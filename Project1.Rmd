@@ -74,8 +74,8 @@ The theoretical variance of the distribution is `r lambda` versus the variance o
         abline(v=5, lwd=3, col="blue")
 
         ##Label means on graph
-        text(meanofdistmeans,0.4, "Data Mean", col="red", adj=c(1.1,0))
-        text(5,0.4, "Expected Mean", col="blue", adj=c(-.10,0))
+        text(meanofdistmeans,0.45, "Data Mean", col="red", adj=c(1.1,0))
+        text(5,0.45, "Expected Mean", col="blue", adj=c(-.10,0))
         text(5.5,0.35, "Fitted Normal Distribution", col="black", adj=c(-.10,0))
 
         ###Draw Std Deviation Lines
