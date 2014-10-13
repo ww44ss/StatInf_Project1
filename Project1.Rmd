@@ -65,7 +65,8 @@ The theoretical variance of the distribution is `r lambda` versus the variance o
 ```{r "histogram"}
 
         ##Generate Historgram
-        hist(expmeans, density=18, angle=45, xlim=c(1,9), ylim=c(0,270))
+        hist(expmeans, prob=TRUE, density=18, angle=45, xlim=c(2,8))
+        curve(dnorm(x, mean=mean(expmeans), sd=sd(expmeans)), add=TRUE)
 
         
         ##Draw lines at mean and theoretical mean = 5
@@ -73,22 +74,18 @@ The theoretical variance of the distribution is `r lambda` versus the variance o
         abline(v=5, lwd=3, col="blue")
 
         ##Label means on graph
-        text(meanofdistmeans,265, "Data Mean", col="red", adj=c(1.1,0))
-        text(5,265, "Theoretical Mean", col="blue", adj=c(-.10,0))
-
+        text(meanofdistmeans,0.4, "Data Mean", col="red", adj=c(1.1,0))
+        text(5,0.4, "Expected Mean", col="blue", adj=c(-.10,0))
+        text(5.5,0.35, "Fitted Normal Distribution", col="black", adj=c(-.10,0))
 
         ###Draw Std Deviation Lines
         
-        
-        stddev<-varofdistmeans^(1/2)
-
-        segments(meanofdistmeans+stddev, 250*.25/.4, meanofdistmeans-stddev, col="red", lwd=3)
 
 
 
 ```
 
-
+Above is a plot of a histogram of the exponentials. The mean of the data, shown in the graph by the red vertical line at `r mean(expmeans)` is barely distinguishable from the theorerical mean at 5.000. The fit of the normal distribution, from the mean and standard deviation `r sd(expmeans)` follows the data well. 
 
 ####Convergence: Evaluate the coverage of the confidence interval for 1/lambda: X¯±1.96S/√n.
 
