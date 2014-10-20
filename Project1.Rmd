@@ -1,13 +1,16 @@
 ---
-title: "Project1: Exploring Variances of the Exponential Distribution"
+title: "Exploring Variances of the Exponential Distribution"
 author: "ww44ss"
 date: "October 2014"
-output: 
-html_document:
-    keep_md: true
+output: pdf_document
+
 ---
 
 ##Synopsis
+
+This analysis shows how the mean and standard deviation of a finite random sample of a uniform distribution converge to population mean with increasing sample size.
+
+Here is a sample of the data. 
 
 ```{r "creatematrix", echo=TRUE}
 
@@ -17,8 +20,8 @@ html_document:
         set.seed(8675309)
 
         ##makes sample sizes variable
-        rowsofsamples <- 40
-        columnsofdistributions <- 1000
+        rowsofsamples <- 42
+        columnsofdistributions <- 1003
 
         ##set lambda 
         lambda <- .2
@@ -28,11 +31,13 @@ html_document:
         rdata <- replicate(columnsofdistributions, rexp(rowsofsamples, lambda)) 
        
         ##look at structure of data
-        str(rdata)
+        rdata[1:10, 1:11]
 
 ```
 
-####Question1: Show where the distribution is centered and compare it to the theoretical center of the distribution.
+This analysis looks at a set of `r columnsofdistributions` distributions of `r rowsofsamples` samples.
+
+###Question1: Show where the distribution is centered and compare it to the theoretical center of the distribution.
 
 ```{r "means"}
 
@@ -46,10 +51,10 @@ html_document:
 
 ```
 
-The mean of the distribution `r meanofdistmeans` differs by `r 100*(meanofdistmeans/5.-1.)`% from the theoretical mean of 5.0
+The mean of the distribution `r meanofdistmeans` differs by `r 100*(meanofdistmeans/5.-1.)`% from the theoretical population mean of 5.0
 
 
-####Variance:  Show how variable it is and compare it to the theoretical variance of the distribution.
+###Variance:  Show how variable it is and compare it to the theoretical variance of the distribution.
 
 
 ```{r "variance"}
@@ -61,7 +66,7 @@ The mean of the distribution `r meanofdistmeans` differs by `r 100*(meanofdistme
 
 The theoretical variance of the distribution is `r lambda` versus the variance of the data `r varofdistmeans`, which is `r varofdistmeans/lambda` times larger.
 
-####Distribution: Show that the distribution is approximately normal.
+###Distribution: Show that the distribution is approximately normal.
 
 ```{r "histogram"}
 
@@ -88,12 +93,12 @@ The theoretical variance of the distribution is `r lambda` versus the variance o
 
 Above is a plot of a histogram of the exponentials. The sample mean of the data, shown in the graph by the red vertical line at `r mean(expmeans)` is barely distinguishable from the popultion mean at 5.000. The fit of the normal distribution, from the sample mean and standard deviation `r sd(expmeans)` follows the data well. 
 
-####Convergence: Evaluate the coverage of the confidence interval for 1/lambda: X¯±1.96S/√n.
+###Convergence: Evaluate the coverage of the confidence interval for 1/lambda
 
 
 ```{r "convergence"}
 
-#hmmm....
+a<-1.0
 
 
 
