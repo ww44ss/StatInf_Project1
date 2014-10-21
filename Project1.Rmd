@@ -20,8 +20,8 @@ Here is a sample of the data.
         set.seed(8675309)
 
         ##makes sample sizes variable
-        rowsofsamples <- 42
-        columnsofdistributions <- 1003
+        rowsofsamples <- 40
+        columnsofdistributions <- 1001
 
         ##set lambda 
         lambda <- .2
@@ -30,12 +30,17 @@ Here is a sample of the data.
         ##c rows is the sample index and column indexes the distribution.
         rdata <- replicate(columnsofdistributions, rexp(rowsofsamples, lambda)) 
        
-        ##look at structure of data
-        rdata[1:10, 1:11]
 
 ```
 
 This analysis looks at a set of `r columnsofdistributions` distributions of `r rowsofsamples` samples.
+
+Here is a sample of some data points
+
+```{r "sampler"}
+
+        rdata[1:10,1]
+```
 
 ###Question1: Show where the distribution is centered and compare it to the theoretical center of the distribution.
 
@@ -51,7 +56,7 @@ This analysis looks at a set of `r columnsofdistributions` distributions of `r r
 
 ```
 
-The mean of the distribution `r meanofdistmeans` differs by `r 100*(meanofdistmeans/5.-1.)`% from the theoretical population mean of 5.0
+The mean of the distribution `r meanofdistmeans` differs by `r 100*(meanofdistmeans/(1/lambda)-1.)`% from the theoretical population mean of 5.0
 
 
 ###Variance:  Show how variable it is and compare it to the theoretical variance of the distribution.
@@ -62,9 +67,11 @@ The mean of the distribution `r meanofdistmeans` differs by `r 100*(meanofdistme
         ## Calculate the Variance
         varofdistmeans = var(expmeans)
 
+        expectedvariance = 1/lambda/(lambda*rowsofsamples)
+
 ```
 
-The theoretical variance of the distribution is `r lambda` versus the variance of the data `r varofdistmeans`, which is `r varofdistmeans/lambda` times larger.
+The theoretical variance of the distribution is lambda  = `r expectedvariance` versus the standard deviation the data `r varofdistmeans`, which differs by `r round(100*(varofdistmeans/expectedvariance-1),2)`% .
 
 ###Distribution: Show that the distribution is approximately normal.
 
@@ -91,19 +98,60 @@ The theoretical variance of the distribution is `r lambda` versus the variance o
 
 ```
 
-Above is a plot of a histogram of the exponentials. The sample mean of the data, shown in the graph by the red vertical line at `r mean(expmeans)` is barely distinguishable from the popultion mean at 5.000. The fit of the normal distribution, from the sample mean and standard deviation `r sd(expmeans)` follows the data well. 
 
-###Convergence: Evaluate the coverage of the confidence interval for 1/lambda
-
-
-```{r "convergence"}
-
-a<-1.0
+```{r "histogram2"}
 
 
 
+        ##Generate Historgram
+        hist((expmeans-1/lambda), prob=TRUE, density=12, angle=45, xlim=c(-3,3), ylim=c(0,0.6),col="blue")
+        curve(dnorm(x, mean=mean(expmeans), sd=sd(expmeans)), add=TRUE)
+
+        
+        ##Draw lines at mean and theoretical mean = 5
+        abline(v=meanofdistmeans-1/lambda, lwd=3, col="red")
+        abline(v=0, lwd=3, col="darkgreen")
+
+        ##Label means on graph
+        text(meanofdistmeans,0.55, "Sample Mean", col="red", adj=c(-0.1,0))
+        text(0,0.55, "Population Mean", col="darkgreen", adj=c(1.10,0))
+        text(0.5,0.35, "Fitted Normal Distribution", col="black", adj=c(-.10,0))
+
+        ###Draw Std Deviation Lines
+        
 
 
 
 ```
+Above is a plot of a histogram of the exponentials. The sample mean of the data, shown in the graph by the red vertical line at `r mean(expmeans)` is barely distinguishable from the popultion mean at 5.000. The fit of the normal distribution, from the sample mean and standard deviation `r sd(expmeans)` follows the data well. 
+
+###Convergence: Evaluate the coverage of the confidence interval
+
+
+```{r "convergence"}
+
+require(ggplot2)
+
+        lambda<-.2
+        noofreps<-5000
+        samples<-c(10, 20, 50, 100, 200, 500, 1000, 2000)
+
+        pmean=1/lambda
+        psd=1/lambda
+        ssd=psd/sqrt(samples)
+
+coverage <- sapply(samples, function(samples) {
+        rdata <- replicate(noofreps, rexp(samples, lambda)) 
+        expmeans <- (colMeans(rdata)-pmean)/ssd
+        mean<-mean(expmeans)
+        ll <- expmeans - qnorm(0.975) * ssd
+        ul <- expmeans + qnorm(0.975) * ssd
+        mean(ll < 0 & ul > 0)
+})
+
+ggplot(data.frame(samples, coverage), aes(x = samples, y = coverage)) + geom_line(size = 2) + geom_hline(yintercept = 0.95) + ylim(.5, 1.0)
+
+```
+
+
 
